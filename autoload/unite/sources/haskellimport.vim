@@ -20,7 +20,7 @@ function! s:unite_source.gather_candidates(args, context)
 endfunction
 
 function! unite#sources#haskellimport#define()
-  return executable('ghc-mod') ? s:unite_source : []
+  return executable('hoogle') ? s:unite_source : []
 endfunction
 
 let &cpo = s:save_cpo
