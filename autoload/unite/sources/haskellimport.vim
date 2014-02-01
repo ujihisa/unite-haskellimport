@@ -10,7 +10,7 @@ let s:unite_source = {
 
 function! s:unite_source.gather_candidates(args, context)
   return map(
-        \ split(unite#util#system('hoogle "' . a:context.input . '"'), "\n"),
+        \ split(s:remove_verbose(unite#util#system('hoogle --verbose "' . a:context.input . '"')), "\n"),
         \ '{
         \ "word": v:val,
         \ "source": "haskellimport",
@@ -21,6 +21,13 @@ endfunction
 
 function! unite#sources#haskellimport#define()
   return executable('hoogle') ? s:unite_source : []
+endfunction
+
+function! s:remove_verbose(output)
+  let l:output = substitute(a:output, '^.*= ANSWERS =\n', '', '')
+  let l:output = substitute(l:output, '^No results found\n', '', '')
+  let l:output = substitute(l:output, '  -- \(\a\+\(+\a\+\)*\)*', '', 'g')
+  return l:output
 endfunction
 
 let &cpo = s:save_cpo
