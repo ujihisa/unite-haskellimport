@@ -4,4 +4,4 @@ Tatsuhiro Ujihisa
 
 ## License
 
-GPL-3 or later
+GPLv3 or any later version
