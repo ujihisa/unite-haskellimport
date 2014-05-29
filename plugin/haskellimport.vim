@@ -20,9 +20,17 @@ command! Haskellimport call s:haskellimport(<q-args>)
 function! s:haskellimport(x)
   let y = split(eval(a:x), ' ')
   let pos = getpos('.')
-  let added = s:add_name(y[0], y[1])
+  let name = y[1]
+  if name == 'class'
+    let name = y[2]
+    let idx = index(y, '=>')
+    if idx >= 0
+      let name = y[idx + 1]
+    endif
+  endif
+  let added = s:add_name(y[0], name)
   if !added
-    call s:add_import(y[0], y[1])
+    call s:add_import(y[0], name)
   endif
   call setpos('.', pos)
 endfunction
