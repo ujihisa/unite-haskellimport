@@ -11,7 +11,8 @@ $ cabal update && cabal install hoogle && hoogle data
 
 ## Usage
 Lanuch unite-haskellimport.
-```VimL
+
+```vim
 :Unite haskellimport
 ```
 
