@@ -27,6 +27,8 @@ function! s:haskellimport(x)
     if idx >= 0
       let name = y[idx + 1]
     endif
+  elseif name == 'data'
+    let name = y[2]
   endif
   let added = s:add_name(y[0], name)
   if !added
