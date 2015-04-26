@@ -10,12 +10,12 @@ let s:unite_source = {
 
 function! s:unite_source.gather_candidates(args, context)
   return map(
-        \ split(s:remove_verbose(unite#util#system('hoogle --verbose "' . a:context.input . '"')), "\n"),
+        \ split(s:remove_verbose(unite#util#system('hoogle --verbose "' . escape(a:context.input, '\"') . '"')), "\n"),
         \ '{
         \ "word": v:val,
         \ "source": "haskellimport",
         \ "kind": "command",
-        \ "action__command": printf("silent Haskellimport \"%s\"", v:val),
+        \ "action__command": printf("silent Haskellimport \"%s\"", escape(v:val, "\\\"")),
         \ }')
 endfunction
 
