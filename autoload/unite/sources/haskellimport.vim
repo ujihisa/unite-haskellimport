@@ -8,9 +8,17 @@ let s:unite_source = {
       \ 'required_pattern_length': 2,
       \ }
 
+function! s:hoogle(input)
+  return s:remove_verbose(unite#util#system('hoogle --verbose "' . escape(a:input, '\"') . '"'))
+endfunction
+
 function! s:unite_source.gather_candidates(args, context)
+  let result = s:hoogle(a:context.input)
+  if result =~# '^Parse error.*Closing bracket expected'
+    let result = s:hoogle(substitute(a:context.input, '(', '', ''))
+  endif
   return map(
-        \ split(s:remove_verbose(unite#util#system('hoogle --verbose "' . escape(a:context.input, '\"') . '"')), "\n"),
+        \ split(result, "\n"),
         \ '{
         \ "word": v:val,
         \ "source": "haskellimport",
