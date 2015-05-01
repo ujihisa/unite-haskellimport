@@ -5,11 +5,11 @@ let s:unite_source = {
       \ 'name': 'haskellimport',
       \ 'max_candidates': 30,
       \ 'is_volatile': 1,
-      \ 'required_pattern_length': 2,
+      \ 'required_pattern_length': 1,
       \ }
 
 function! s:hoogle(input)
-  return s:remove_verbose(unite#util#system('hoogle --verbose "' . escape(a:input, '\"') . '"'))
+  return s:remove_verbose(unite#util#system('hoogle --verbose "' . escape(a:input, '\"') . '" | head -n 31'))
 endfunction
 
 function! s:unite_source.gather_candidates(args, context)
