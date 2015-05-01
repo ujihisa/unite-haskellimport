@@ -34,7 +34,7 @@ endfunction
 function! s:remove_verbose(output)
   let l:output = substitute(a:output, '^.*= ANSWERS =\n', '', '')
   let l:output = substitute(l:output, '^No results found\n', '', '')
-  let l:output = substitute(l:output, 'package.\{-}\n', '', 'g')
+  let l:output = substitute(l:output, '\%(package\|keyword\).\{-}\n', '', 'g')
   let l:output = substitute(l:output, '  -- \(\a\+\(+\a\+\)*\)*', '', 'g')
   return l:output
 endfunction
