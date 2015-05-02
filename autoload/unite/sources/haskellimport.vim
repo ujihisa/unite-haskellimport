@@ -42,8 +42,7 @@ endfunction
 " This is because the `hoogle` command cannot suggest the (***) operator
 " with `hoogle "***"`. This might be a bug of hoogle, but we can remedy
 " beforehand. Then, a closing bracket is appended when it seems that the user
-" will search for an operator. Nevertheless, when hoogle warns about the missing
-" closing bracket, it appends a bracket and tries again.
+" will search for an operator.
 function! s:unite_source.gather_candidates(args, context)
   if a:context.input =~# '^\s*(\s*$'
     let result = ''
