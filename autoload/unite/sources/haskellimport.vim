@@ -28,7 +28,7 @@ function! s:hoogle(input)
   return s:system(
         \ 'hoogle --verbose "' . escape(a:input, '\"') . '"'
         \.' | sed -e "/^= ANSWERS =/d" -e "/^No results found/d" -e "/^keyword/d" -e "/^package/d" -e "s/  -- [+a-zA-Z]*$//g"'
-        \.' | head -n 31')
+        \.' | head -n 30')
 endfunction
 
 function! s:unite_source.gather_candidates(args, context)
