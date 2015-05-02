@@ -76,10 +76,11 @@ function! s:add_name(module, name)
     let end = ',' . l:end
   endif
 
-  " Add if <name> have not been imported.
+  " Import the module fully
   if a:name ==# ''
     call setline(newpos, 'import ' . a:module . tail)
   else
+    " If <name> have not been imported.
     if index(name_list, a:name) < 0
       let name_list = add(name_list, a:name)
       call setline(newpos, 'import ' . a:module . head . '(' . ihead . join(sort(name_list), ', ') . end . tail)
