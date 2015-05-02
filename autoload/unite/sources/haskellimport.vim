@@ -58,14 +58,11 @@ function! s:unite_source.gather_candidates(args, context)
       let result = ''
     endif
   endif
-  return map(
-        \ split(result, "\n"),
-        \ '{
-        \ "word": v:val,
-        \ "source": "haskellimport",
-        \ "kind": "command",
-        \ "action__command": printf("silent Haskellimport \"%s\"", escape(v:val, "\\\"")),
-        \ }')
+  return map(split(result, "\n"),
+        \ '{ "word": v:val,
+        \    "source": "haskellimport",
+        \    "kind": "command",
+        \    "action__command": printf("silent Haskellimport \"%s\"", escape(v:val, "\\\"")) }')
 endfunction
 
 function! unite#sources#haskellimport#define()
