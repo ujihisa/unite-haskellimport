@@ -9,7 +9,10 @@ let s:unite_source = {
       \ }
 
 function! s:hoogle(input)
-  return s:remove_verbose(unite#util#system('hoogle --verbose "' . escape(a:input, '\"') . '" | head -n 31'))
+  return unite#util#system(
+        \ 'hoogle --verbose "' . escape(a:input, '\"') . '"'
+        \.' | sed -e "/^= ANSWERS =/d" -e "/^No results found/d" -e "/^keyword/d" -e "/^package/d" -e "s/  -- [+a-zA-Z]*$//g"'
+        \.' | head -n 31')
 endfunction
 
 function! s:unite_source.gather_candidates(args, context)
@@ -29,14 +32,6 @@ endfunction
 
 function! unite#sources#haskellimport#define()
   return executable('hoogle') ? s:unite_source : []
-endfunction
-
-function! s:remove_verbose(output)
-  let l:output = substitute(a:output, '^.*= ANSWERS =\n', '', '')
-  let l:output = substitute(l:output, '^No results found\n', '', '')
-  let l:output = substitute(l:output, '\%(package\|keyword\).\{-}\n', '', 'g')
-  let l:output = substitute(l:output, '  -- \(\a\+\(+\a\+\)*\)*', '', 'g')
-  return l:output
 endfunction
 
 let &cpo = s:save_cpo
