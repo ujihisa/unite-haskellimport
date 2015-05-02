@@ -27,7 +27,7 @@ function! s:haskellimport(x)
     if idx >= 0 && len(y) > idx + 1
       let name = y[idx + 1]
     endif
-  elseif name == 'data' && len(y) > 2
+  elseif (name == 'data' || name == 'type') && len(y) > 2
     let name = y[2]
   elseif name == 'module'
     let name = ''
