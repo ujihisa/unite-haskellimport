@@ -51,7 +51,7 @@ function! s:unite_source.gather_candidates(args, context)
     let input = input =~# '^([-+*<>/$|@]\+$' ? input . ')' : input
     let result = s:hoogle(input)
     if result =~# '^Parse error.*Closing bracket expected'
-      let result = s:hoogle(substitute(a:context.input, '(', '', ''))
+      let result = s:hoogle(a:context.input . ')')
     endif
   endif
   return map(
