@@ -6,6 +6,7 @@ let s:unite_source = {
       \ 'max_candidates': 30,
       \ 'is_volatile': 1,
       \ 'required_pattern_length': 1,
+      \ 'matchers': 'matcher_haskellimport',
       \ }
 
 if has('win16') || has('win32') || has('win64') || has('win95')
