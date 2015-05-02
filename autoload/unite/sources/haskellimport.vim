@@ -9,10 +9,16 @@ let s:unite_source = {
       \ }
 
 if has('win16') || has('win32') || has('win64') || has('win95')
+  " For Windows, we use the utility function of unite, which is actually the
+  " function of vimproc, so that executing the external command does not show
+  " the command prompt window.
   function! s:system(cmd)
     return unite#util#system(a:cmd)
   endfunction
 else
+  " For non-Windows, we use the system() function of Vim. Encoding conversion
+  " is not required for the hoogle command and system() is actually faster
+  " than the command of vimproc.
   function! s:system(cmd)
     return system(a:cmd)
   endfunction
