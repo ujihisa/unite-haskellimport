@@ -37,12 +37,12 @@ endfunction
 
 " This function gathers the candidates using the `hoogle` command. Firstly,
 " when the input is `(`, there is no need to execute the external command.
-" Then, it wraps the input with the parenthesis when the input matches \*\+.
-" This is because the `hoogle` command cannot suggests the (***) operator
-" with `hoogle ***`. This might be a bug of hoogle, but we can remedy
+" Then, it wraps the input with the parentheses when the input matches \*\+.
+" This is because the `hoogle` command cannot suggest the (***) operator
+" with `hoogle "***"`. This might be a bug of hoogle, but we can remedy
 " beforehand. Then, a closing bracket is appended when it seems that the user
-" will search for an operator. Nevertheless, when hoogle warns the missing
-" closing bracket, it appends the bracket and tries again.
+" will search for an operator. Nevertheless, when hoogle warns about the missing
+" closing bracket, it appends a bracket and tries again.
 function! s:unite_source.gather_candidates(args, context)
   if a:context.input =~# '^\s*(\s*$'
     let result = ''
