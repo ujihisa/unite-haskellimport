@@ -8,8 +8,18 @@ let s:unite_source = {
       \ 'required_pattern_length': 1,
       \ }
 
+if has('win16') || has('win32') || has('win64') || has('win95')
+  function! s:system(cmd)
+    return unite#util#system(a:cmd)
+  endfunction
+else
+  function! s:system(cmd)
+    return system(a:cmd)
+  endfunction
+endif
+
 function! s:hoogle(input)
-  return unite#util#system(
+  return s:system(
         \ 'hoogle --verbose "' . escape(a:input, '\"') . '"'
         \.' | sed -e "/^= ANSWERS =/d" -e "/^No results found/d" -e "/^keyword/d" -e "/^package/d" -e "s/  -- [+a-zA-Z]*$//g"'
         \.' | head -n 31')
