@@ -31,6 +31,8 @@ endif
 " candidates causes the performance down.
 " It uses shellescape so that we can select (\\) with the input \\ and (<$?>)
 " with the input <$?>. Double quotes expands the shell variables $?.
+" It gives --count 100, which is larger than max_candidates. This is because
+" there are some lines filtered out by the sed command.
 function! s:hoogle(input)
   return s:system(
         \ 'hoogle --verbose --count 100 ' . shellescape(a:input)
