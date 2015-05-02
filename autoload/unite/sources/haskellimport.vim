@@ -29,6 +29,8 @@ endif
 " lines which the user does not intend to import to the source code. The
 " command `head` is used to trim the candidates list because too many
 " candidates causes the performance down.
+" It uses shellescape so that we can select (\\) with the input \\ and (<$?>)
+" with the input <$?>. Double quotes expands the shell variables $?.
 function! s:hoogle(input)
   return s:system(
         \ 'hoogle --verbose --count 100 ' . shellescape(a:input)
