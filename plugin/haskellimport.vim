@@ -29,6 +29,8 @@ function! s:haskellimport(x)
     endif
   elseif name == 'data' && len(y) > 2
     let name = y[2]
+  elseif name == 'module'
+    let name = ''
   endif
   let added = s:add_name(y[0], name)
   if !added
@@ -75,9 +77,13 @@ function! s:add_name(module, name)
   endif
 
   " Add if <name> have not been imported.
-  if index(name_list, a:name) < 0
-    let name_list = add(name_list, a:name)
-    call setline(newpos, 'import ' . a:module . head . '(' . ihead . join(sort(name_list), ', ') . end . tail)
+  if a:name ==# ''
+    call setline(newpos, 'import ' . a:module . tail)
+  else
+    if index(name_list, a:name) < 0
+      let name_list = add(name_list, a:name)
+      call setline(newpos, 'import ' . a:module . head . '(' . ihead . join(sort(name_list), ', ') . end . tail)
+    endif
   endif
 
   return 1
@@ -85,7 +91,11 @@ endfunction
 
 
 function! s:add_import(module, name)
-  let line = printf("import %s (%s)", a:module, a:name)
+  if a:name ==# ''
+    let line = printf("import %s", a:module)
+  else
+    let line = printf("import %s (%s)", a:module, a:name)
+  endif
   let newpos = search('^import', 'b')
   if newpos == 0
     call cursor(1, 1)
