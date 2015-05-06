@@ -34,7 +34,7 @@ function! s:haskellimport(x)
   endif
   let added = s:add_name(y[0], name)
   if !added
-    call s:add_import(y[0], name)
+    let pos[1] += s:add_import(y[0], name)
   endif
   call setpos('.', pos)
 endfunction
@@ -107,5 +107,7 @@ function! s:add_import(module, name)
   call append(getpos('.')[1] - 1, line)
   if getline('.') !~# '^import\|^\s*$'
     call append(getpos('.')[1] - 1, '')
+    return 2
   endif
+  return 1
 endfunction
