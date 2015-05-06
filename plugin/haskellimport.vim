@@ -96,9 +96,9 @@ endfunction
 
 function! s:add_import(module, name)
   if a:name ==# ''
-    let line = printf("import %s", a:module)
+    let line = printf('import %s', a:module)
   else
-    let line = printf("import %s (%s)", a:module, a:name)
+    let line = printf('import %s (%s)', a:module, a:name)
   endif
   let newpos = search('^import', 'b')
   if newpos == 0
