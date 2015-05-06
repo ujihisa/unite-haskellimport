@@ -1,3 +1,6 @@
+let s:save_cpo = &cpo
+set cpo&vim
+
 command! Haskellimport call s:haskellimport(<q-args>)
 
 " Supported patterns
@@ -111,3 +114,6 @@ function! s:add_import(module, name)
   endif
   return 1
 endfunction
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
