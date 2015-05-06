@@ -20,7 +20,7 @@ command! Haskellimport call s:haskellimport(<q-args>)
 " import Root.M ( a, b, c,
 "                 d, e )
 
-function! s:haskellimport(x)
+function! s:haskellimport(x) abort
   let y = split(eval(a:x), ' ')
   let pos = getpos('.')
   let name = y[1]
@@ -43,7 +43,7 @@ function! s:haskellimport(x)
 endfunction
 
 
-function! s:add_name(module, name)
+function! s:add_name(module, name) abort
   let module_re = escape(a:module, '.\')
   let import_re = '^import \+' . module_re
   call cursor(1, 1)
@@ -94,7 +94,7 @@ function! s:add_name(module, name)
 endfunction
 
 
-function! s:add_import(module, name)
+function! s:add_import(module, name) abort
   if a:name ==# ''
     let line = printf('import %s', a:module)
   else

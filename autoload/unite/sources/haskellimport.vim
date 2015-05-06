@@ -13,14 +13,14 @@ if has('win16') || has('win32') || has('win64') || has('win95')
   " For Windows, we use the utility function of unite, which is actually the
   " function of vimproc, so that executing the external command does not show
   " the command prompt window.
-  function! s:system(cmd)
+  function! s:system(cmd) abort
     return unite#util#system(a:cmd)
   endfunction
 else
   " For non-Windows, we use the system() function of Vim. Encoding conversion
   " is not required for the hoogle command and system() is actually faster
   " than the command of vimproc.
-  function! s:system(cmd)
+  function! s:system(cmd) abort
     return system(a:cmd)
   endfunction
 endif
@@ -33,7 +33,7 @@ endif
 " with the input <$?>. Double quotes expands the shell variables $?.
 " It gives --count 100, which is larger than max_candidates. This is because
 " there are some lines filtered out by the sed command.
-function! s:hoogle(input)
+function! s:hoogle(input) abort
   return s:system(
         \ 'hoogle --verbose --count 100 ' . shellescape(a:input)
         \.' | sed -e "/^= ANSWERS =/d" -e "/^No results found/d" -e "/^keyword/d" -e "/^package/d" -e "s/  -- [+a-zA-Z]*$//g"'
@@ -47,7 +47,7 @@ endfunction
 " with `hoogle "***"`. This might be a bug of hoogle, but we can remedy
 " beforehand. Then, a closing bracket is appended when it seems that the user
 " will search for an operator.
-function! s:unite_source.gather_candidates(args, context)
+function! s:unite_source.gather_candidates(args, context) abort
   if a:context.input =~# '^\s*(\s*$'
     let result = ''
   else
@@ -65,7 +65,7 @@ function! s:unite_source.gather_candidates(args, context)
         \    "action__command": printf("silent Haskellimport \"%s\"", escape(v:val, "\\\"")) }')
 endfunction
 
-function! unite#sources#haskellimport#define()
+function! unite#sources#haskellimport#define() abort
   return executable('hoogle') ? s:unite_source : []
 endfunction
 
