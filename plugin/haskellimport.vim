@@ -105,4 +105,7 @@ function! s:add_import(module, name)
     call cursor(search('^[^ ]\|^$'))
   endif
   call append(getpos('.')[1] - 1, line)
+  if getline('.') !~# '^import\|^\s*$'
+    call append(getpos('.')[1] - 1, '')
+  endif
 endfunction
