@@ -51,8 +51,8 @@ function! s:unite_source.gather_candidates(args, context) abort
   if a:context.input =~# '^\s*(\s*$'
     let result = ''
   else
-    let input = a:context.input =~# '^\*[-+*<>/$|@.&%?!\\]*$' ? '(' . a:context.input . ')' : a:context.input
-    let input = input =~# '^([-+*<>/$|@.&%?!\\]\+$' ? input . ')' : input
+    let input = a:context.input =~# '^\*[-+*<>/$|@.&%?!\\:]*$' ? '(' . a:context.input . ')' : a:context.input
+    let input = input =~# '^([-+*<>/$|@.&%?!\\:]\+$' ? input . ')' : input
     let result = s:hoogle(input)
     if result =~# '^Parse error'
       let result = ''
