@@ -24,15 +24,15 @@ function! s:haskellimport(x)
   let y = split(eval(a:x), ' ')
   let pos = getpos('.')
   let name = y[1]
-  if name == 'class' && len(y) > 2
+  if name ==# 'class' && len(y) > 2
     let name = y[2]
     let idx = index(y, '=>')
     if idx >= 0 && len(y) > idx + 1
       let name = y[idx + 1]
     endif
-  elseif (name == 'data' || name == 'type') && len(y) > 2
+  elseif (name ==# 'data' || name ==# 'type') && len(y) > 2
     let name = y[2]
-  elseif name == 'module'
+  elseif name ==# 'module'
     let name = ''
   endif
   let added = s:add_name(y[0], name)
