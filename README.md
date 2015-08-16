@@ -24,9 +24,10 @@ Then, the import sentence is inserted at suitable position.
 
 ![inserted import](http://i.gyazo.com/f0db4517158a05721cb6def269065e33.png)
 
-## Author
+## Authors
 
-Tatsuhiro Ujihisa
+* Tatsuhiro Ujihisa
+* Itchyny
 
 ## License
 
