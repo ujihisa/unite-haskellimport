@@ -102,8 +102,7 @@ function! s:add_import(module, name) abort
   if newpos == 0
     call cursor(1, 1)
   else
-    call cursor(newpos)
-    call cursor(search('^[^ ]\|^$'))
+    call search('^[^ ]\|^$')
   endif
   call append(getpos('.')[1] - 1, line)
   if getline('.') !~# '^import\|^\s*$'
