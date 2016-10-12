@@ -55,27 +55,14 @@ function! s:add_name(module, name) abort
   let tail = matchstr(line, '\s*\(--.*$\|$\)')
   let line = line[0:-len(tail)-1]
 
-  " 'import Foo.Bar' . <SPACES> . '( foldl, transpose, concat )' . ' -- comment'
-  let m = matchlist(line, import_re . '\(\s\+\)' . '(\(\s*\)' . '\(.*\)')
+  " 'import Foo.Bar' . '\s+' . '(\s*' . 'foldl, transpose, concat' . '\s*)'
+  let m = matchlist(line, import_re . '\(\s\+\)' . '\((\s*\)' . '\(\%(\%(,\s*\)\?[^(), ]\+\|([^() ]*)\)*\)' . '\(.*\)')
   if len(m) < 1
     return 1
   endif
 
-  let [head, ihead, names] = m[1:3]
-  let end = ''
+  let [leading, opening, names, rest] = m[1:4]
   let name_list = split(names, '\s*,\s*')
-  let last_name = name_list[-1]
-
-  " if last_name is '(<$>)' or 'foo)'
-  if match(last_name, '^\((.*))\|[^(]\+)\)$') > -1
-    let name_list[-1] = substitute(last_name, '\s*)', '', '')
-    let end = ')'
-  endif
-
-  " if 'import Foo.Bar (a, b, c<,>'
-  if match(names, ',\s*$') > -1
-    let end = ',' . l:end
-  endif
 
   " Import the module fully
   if a:name ==# ''
@@ -84,7 +71,7 @@ function! s:add_name(module, name) abort
     " If <name> have not been imported.
     if index(name_list, a:name) < 0
       let name_list = add(name_list, a:name)
-      call setline(newpos, 'import ' . a:module . head . '(' . ihead . join(sort(name_list), ', ') . end . tail)
+      call setline(newpos, 'import ' . a:module . leading . opening . join(sort(name_list), ', ') . rest . tail)
     endif
   endif
 
