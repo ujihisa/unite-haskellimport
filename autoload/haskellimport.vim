@@ -30,8 +30,6 @@ function! haskellimport#import(x) abort
     endif
   elseif (name ==# 'data' || name ==# 'type') && len(y) > 2
     let name = y[2]
-  elseif name ==# 'module'
-    let name = ''
   endif
   let added = s:add_name(y[0], name)
   if !added
