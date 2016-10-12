@@ -44,7 +44,7 @@ function! s:add_name(module, name) abort
   let import_re = '^import \+' . module_re
   call cursor(1, 1)
 
-  let newpos = search(import_re)
+  let newpos = search(import_re . '\([A-Za-z0-9_.]\)\@!')
   if !newpos
     return 0
   endif
