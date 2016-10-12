@@ -36,7 +36,7 @@ endif
 function! s:hoogle(input) abort
   return s:system(
         \ 'hoogle --verbose --count 100 ' . shellescape(a:input)
-        \.' | sed -e "/^= ANSWERS =/d" -e "/^No results found/d" -e "/^keyword/d" -e "/^package/d" -e "s/  -- [+a-zA-Z]*$//g"'
+        \.' | sed -e "/^= ANSWERS =/d" -e "/^No results found/d" -e "/^keyword/d" -e "/^package/d" -e "/^Query:/d" -e "s/  -- [+a-zA-Z]*$//g"'
         \.' | head -n 30')
 endfunction
 
