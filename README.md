@@ -24,6 +24,20 @@ Then, the import sentence is inserted at suitable position.
 
 ![inserted import](http://i.gyazo.com/f0db4517158a05721cb6def269065e33.png)
 
+## Testing
+
+* Use [themis](https://github.com/thinca/vim-themis)
+
+```
+$ themis ./test/haskellimport.vim
+1..2
+ok 1 - haskellimport import
+ok 2 - haskellimport import_with_pragmas
+
+# tests 2
+# passes 2
+```
+
 ## Authors
 
 * Tatsuhiro Ujihisa
